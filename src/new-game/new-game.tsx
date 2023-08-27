@@ -1,7 +1,7 @@
 import {useCallback, useState, useEffect} from "react"
 import {useAccountsStore} from "../stores/accounts-store.ts";
 import FactionSelector from "./faction-selector.tsx";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 /**
  * This component is a basic MVP of part one of the quickstart. It handles registering your agent and receives a token
@@ -51,7 +51,8 @@ function NewGame() {
 
     {error && <p className={'error'}>{error}</p>}
 
-    <button disabled={submitDisabled} onClick={createAccount} > Submit Agent Details </button>
+    <button disabled={submitDisabled} onClick={createAccount} className={'marginRight'}> Submit Agent Details </button>
+    <Link to={'/'}><button>Cancel </button></Link>
 
   </div>)
 }

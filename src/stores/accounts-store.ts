@@ -25,8 +25,9 @@ type AccountRequest = {
     token: string
 }
 
-type Account = {
+export type Account = {
     name: string,
+    factionName: string,
     token: string,
     accountDetails?: AccountRequest
 }
@@ -37,10 +38,11 @@ interface AccountsStoreType {
     createNewAccount: (accountData: { symbol: string, faction: string }) => Promise<{ error: null | string }>
     getFactions: () => void;
     factions: Faction[];
+    setCurrentAccount: (account: Account) => void;
 }
 
 export const useAccountsStore = create<AccountsStoreType, [["zustand/persist", unknown]]>(
-    // Persist uses localstorage to save this information so that it will be retained
+    // Persist uses sessionStorage to save this information so that it will be retained
     persist(
         (set, get) => ({
             accounts: [],
@@ -58,11 +60,16 @@ export const useAccountsStore = create<AccountsStoreType, [["zustand/persist", u
                 if (ok) {
                     const typedData = data as AccountRequest;
                     const existingAccounts = get().accounts;
-                    const newAgent = {name: symbol, token: typedData.token}
+                    const newAgent = {
+                        name: symbol,
+                        factionName: faction,
+                        token: typedData.token,
+                        accountDetails: typedData
+                    }
 
                     set({
                         accounts: [...existingAccounts, newAgent],
-                        currentAccount: {...newAgent, accountDetails: typedData},
+                        currentAccount: newAgent,
                     })
 
                     return {error: null}
@@ -71,9 +78,14 @@ export const useAccountsStore = create<AccountsStoreType, [["zustand/persist", u
 
                 return {error: errorData.error.message}
             },
+            setCurrentAccount: (account) => {
+                set({
+                    currentAccount: account
+                })
+            },
             getFactions: async () => {
                 const currentFactions = get().factions;
-                if(currentFactions.length) {
+                if (currentFactions.length) {
                     return
                 }
 

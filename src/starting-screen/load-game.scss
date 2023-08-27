@@ -1,0 +1,9 @@
+$retroGreen: #32A956;
+.accountOption {
+  margin-top: 20px;
+  width: 100%;
+  padding: 20px 10px;
+  box-shadow: 3px -3px $retroGreen, 2px -2px $retroGreen, 1px -1px $retroGreen;
+  border: 1px solid $retroGreen;
+  cursor: pointer;
+}
