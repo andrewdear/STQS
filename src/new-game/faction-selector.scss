@@ -1,0 +1,27 @@
+$retroGreen: #32A956;
+$blue: #5cacff;
+
+.factionOptions {
+  margin-bottom: 50px;
+    .factionOption {
+      margin-top: 20px;
+      width: 100%;
+      padding:  20px 10px;
+      box-shadow: 3px -3px $retroGreen, 2px -2px $retroGreen, 1px -1px $retroGreen;
+      border: 1px solid $retroGreen;
+      cursor: pointer;
+
+      @media (min-width: 768px) {
+        min-height: 120px;
+      }
+      @media (min-width: 1200px) {
+        min-height: 90px;
+      }
+      &.selected {
+        box-shadow: none;
+        color: $blue;
+        border: 1px solid $blue;
+      }
+    }
+
+}

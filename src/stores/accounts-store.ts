@@ -8,9 +8,9 @@ type CommonTraits = {
     symbol: string
 }
 
-type Trait = CommonTraits;
+export type Trait = CommonTraits;
 
-type Faction = CommonTraits & {
+export type Faction = CommonTraits & {
     headquarters: string,
     isRecruiting: boolean
     traits: Trait[]

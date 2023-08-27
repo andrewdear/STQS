@@ -1,8 +1,8 @@
 import './App.css'
-import NewGame from './NewGame'
+import './bootstrap-grid.min.scss'
+import NewGame from './new-game/new-game'
 
 function App() {
-    console.log('hit');
   return (
     <>
       <NewGame />
