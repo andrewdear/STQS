@@ -21,6 +21,9 @@ $blue: #5cacff;
         box-shadow: none;
         color: $blue;
         border: 1px solid $blue;
+        position: relative;
+        top: -3px;
+        right: -2px;
       }
     }
 

@@ -17,12 +17,13 @@ type RenderFactionOptionsProps = {
 const RenderFactionOptions = ({factions, clickFactionOption, selectedFaction}: RenderFactionOptionsProps) => {
     const recruitingFactions = factions.filter((faction) => faction.isRecruiting)
 
-    const factionOptions = recruitingFactions.map(faction => {
+    const factionOptions = recruitingFactions.map((faction, index) => {
         const isSelected = faction.symbol === selectedFaction?.symbol;
 
         return <div
             className={'col-12 col-md-3'}
             key={faction.name}
+            data-testid={`factionOption${index}`}
             onClick={() => clickFactionOption(faction)}
         ><div className={`factionOption ${isSelected ? 'selected' : ''}`}>
             {faction.name} ({faction.symbol})
@@ -33,9 +34,7 @@ const RenderFactionOptions = ({factions, clickFactionOption, selectedFaction}: R
 }
 
  function FactionSelector({factions, onSelect}: FactionSelectorProps) {
-
     const [selectedFaction, setSelectedFaction] = useState<Faction | null>(null);
-
     const clickFactionOption = (faction: Faction) => {
         setSelectedFaction(faction);
         onSelect(faction.symbol)
