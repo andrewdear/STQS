@@ -1,4 +1,4 @@
-import {memo, useState} from 'react';
+import {useState} from 'react';
 import {Faction} from "../stores/accounts-store.ts";
 import './faction-selector.scss'
 import FactionData from "./faction-data.tsx";

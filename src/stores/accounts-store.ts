@@ -1,6 +1,7 @@
 import {create} from 'zustand'
 import {createJSONStorage, persist} from 'zustand/middleware'
 import {doRequest, getAllPaginatedData} from "../utils/requests";
+import {errorType} from "../utils/requests/do-request.ts";
 
 type CommonTraits = {
     description: string,
@@ -33,7 +34,7 @@ type Account = {
 interface AccountsStoreType {
     accounts: Account[],
     currentAccount: Account | null
-    createNewAccount: (accountData: { symbol: string, faction: string }) => void
+    createNewAccount: (accountData: { symbol: string, faction: string }) => Promise<{ error: null | string }>
     getFactions: () => void;
     factions: Faction[];
 }
@@ -53,7 +54,7 @@ export const useAccountsStore = create<AccountsStoreType, [["zustand/persist", u
                         faction,
                     }
                 })
-                //TODO: will need to show error messages
+
                 if (ok) {
                     const typedData = data as AccountRequest;
                     const existingAccounts = get().accounts;
@@ -63,13 +64,18 @@ export const useAccountsStore = create<AccountsStoreType, [["zustand/persist", u
                         accounts: [...existingAccounts, newAgent],
                         currentAccount: {...newAgent, accountDetails: typedData},
                     })
+
+                    return {error: null}
                 }
+                const errorData = data as errorType;
+
+                return {error: errorData.error.message}
             },
             getFactions: async () => {
-                // const currentFactions = get().factions;
-                // if(currentFactions.length) {
-                //     return
-                // }
+                const currentFactions = get().factions;
+                if(currentFactions.length) {
+                    return
+                }
 
                 // Docs say you need a token for this, it seems you do not, may change in future, hopefully not seems like the kind of endpoint you should not need one
                 const {data: factions} = await getAllPaginatedData<Faction>('https://api.spacetraders.io/v2/factions');

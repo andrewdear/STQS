@@ -11,7 +11,12 @@ type RequestOptions = {
     body?: string
 }
 
-export const doRequest = async <T>(url: string, {page, token, method = 'GET', body}: InputOptions = {}): Promise<{ok: boolean, data: T | {error: string} }> => {
+export type errorType = { error: { message: string } }
+
+export const doRequest = async <T>(url: string, {page, token, method = 'GET', body}: InputOptions = {}): Promise<{
+    ok: boolean,
+    data: T | errorType
+}> => {
     let requestUrl = url;
     if (page) {
         requestUrl = `${requestUrl}?page=${page}`
@@ -30,7 +35,7 @@ export const doRequest = async <T>(url: string, {page, token, method = 'GET', bo
         method
     }
 
-    if(body) {
+    if (body) {
         options.body = JSON.stringify(body)
     }
 
@@ -43,7 +48,7 @@ export const doRequest = async <T>(url: string, {page, token, method = 'GET', bo
     } catch (e) {
         console.log('Something has gone wrong', e);
         return {
-            ok: false, data: {error: 'something has gone wrong with request'}
+            ok: false, data: {error: {message: 'something has gone wrong with request'}}
         }
     }
 }

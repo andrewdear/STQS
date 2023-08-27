@@ -16,7 +16,7 @@
 
 * {
   color: #32A956;
-  font-family: 'Andale Mono';
+  font-family: 'Andale Mono', monospace;
 }
 
 body {
@@ -59,4 +59,9 @@ button:disabled {
   border: 1px solid #737373;
   color: #737373;
   cursor: not-allowed;
+}
+
+.error {
+  color: #e13c3c;
+  margin-bottom: 40px;
 }

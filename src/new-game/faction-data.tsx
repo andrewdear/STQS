@@ -11,7 +11,7 @@ type RenderTraitsProps = {
 
 const RenderTraits = ({traits}: RenderTraitsProps) => {
     const traitList = traits.map(trait => {
-        return <div className={'traitItem'}>
+        return <div className={'traitItem'} key={trait.symbol}>
             <p>Name: {trait.name}</p>
             <p>Symbol: {trait.symbol}</p>
             <p>Description: {trait.description}</p>

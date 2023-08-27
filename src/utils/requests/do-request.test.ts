@@ -103,7 +103,7 @@ describe('doRequest', () => {
 
         const data = await doRequest('test.com');
 
-        expect(data).toEqual({ok: false, data: {error: 'something has gone wrong with request'}})
+        expect(data).toEqual({ok: false, data: {error: {message:'something has gone wrong with request'}}})
 
         expect(fetch).toHaveBeenCalledWith('test.com',
             {
