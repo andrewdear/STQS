@@ -122,4 +122,25 @@ describe('new-game', () => {
 
         unmount()
     })
+
+    it('should show loading if there are no factions', async () => {
+        vi.mocked(useAccountsStore).mockImplementation(vi.fn((passedFunction: any) => {
+            const data = {
+                createNewAccount: createNewAccountMock,
+                getFactions: getFactionsMock,
+                factions: [],
+            }
+
+            return passedFunction(data);
+        }))
+
+        const {unmount} = render(<NewGame />);
+
+        // find the error message and check it's what was returned
+        const loadingNode = await screen.findByTestId("loading");
+
+        expect(loadingNode).toHaveTextContent('Loading...');
+
+        unmount()
+    })
 })

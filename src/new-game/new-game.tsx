@@ -15,6 +15,10 @@ function NewGame() {
     getFactions()
   }, [])
 
+  if(!factions.length) {
+    return <div data-testid="loading">Loading...</div>
+  }
+
   const selectFaction = (symbol: string) => {
     setForm({
       ...form, faction: symbol
