@@ -5,8 +5,11 @@ const requestsAllowedPerSecond = 2;
 
 type Meta = { total: number, page: number, limit: number };
 
-// Some of the requests have a few pages of paginated data. To be used only when sensible, will only work on array data
-// For the type you pass in the type of a single array item that will be returned
+/*
+ * Some requests have a paginated data. Some of this data we want all at once
+ * This function loops over the request to get all paginated data for the request
+ */
+
 export const getAllPaginatedData = async <T>(url: string, requestData: InputOptions = {}): Promise<{data:T[], error: string | null}> => {
 
     const firstRequest = await doRequest<{data: T[], meta: Meta}>(url, {...requestData, page: 1});

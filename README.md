@@ -23,4 +23,4 @@ Application gets rendered twice on first init, this is because of React strict m
 
 I have never used Vi before have probably used some things wrong. It's very close to jest hopefully it should be mostly ok.
 
-I have only done one component test for new-game.tsx. If it was a production application I would do tests for everything, but the other components would be very rinse and repeat of this test.
+I have only done a few unit tests one component test. If it was a production application I would do tests for everything.

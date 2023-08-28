@@ -73,8 +73,6 @@ describe('new-game', () => {
         expect(createNewAccountMock).toHaveBeenCalledWith({faction: 'TEST', symbol: 'TestAgent'})
 
         //Check that the error has not occurred
-        // I would have preferred to check that the navigation function was hit, but it does not seem to want to work from a mockImplementation.
-        // I can see the docs saying this is the way to do it and I can log it out in the code and see that the mock is there, but it will not find it.
         const errorNode = await screen.queryByTestId("newGameError");
         expect(errorNode).not.toBeInTheDocument()
 
